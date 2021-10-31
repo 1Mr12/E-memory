@@ -1,0 +1,132 @@
+{% extends "layout.html" %}
+{% block TitleBar %}
+
+<form action="" method="POST">
+    <br>
+    <input list="Keys" type="search" name="SearchKey"  class="SearchPage" placeholder="Search Key ..." >
+    <button type="submit" id="s" ></button>
+            
+    <datalist id="Keys">
+        {% for Key in SearchKeys %}
+        <option value='{{ Key }}' >
+        {% endfor %}
+    </datalist>
+    <br>
+    
+
+</form>
+
+{% endblock %}
+
+{% block content %}
+    <div class="content center ">
+        <br>
+            {% for info in AllInfo %}
+                {% if t %}
+                     <input class="submit2" type="button" data-s = "{{loop.index}}" value="{{ info.Key}}">
+                {% else %}
+                     <input class="submit2" type="button" data-s = "{{loop.index}}" value="{{loop.index}}">
+                {% endif %}
+                
+                 
+            {% endfor %}
+            
+            {% for info in AllInfo %}
+                <div id = "{{loop.index}}" class="none" >
+
+                {% if info.Text %}
+                        {% set text = info.Text[0] %}
+                        <form action="" method="POST">
+                        <div id = "TextDiv" >
+                            <p class="Head" >
+                            {% if text.TextHead  %}
+                                {{ text.TextHead }}
+                            {% else %}
+                                    Text
+                            {% endif %}
+                            </p>
+                            <textarea name = "Text-TextData" id ="SearchTextarea" readonly class="textarea">{{ text.Text}}</textarea>
+                           <p class="Comment"> 
+                            {% if text.TextComment  %}
+                                {{ text.TextComment }}
+                            {% else %}
+                                Comment
+                            {% endif %}</p>
+                           <input type="hidden" value="{{ info.InfoId }}" name="InfoId">
+                        </div>
+                    </form>
+
+                {% endif %}
+
+                {% if info.Links %}
+                    {% set link = info.Links[0] %}
+                        <div id = "LinkDiv" >
+                            <p class="Head" >{% if link.LinkHead %}
+                                {{ link.LinkHead }}
+                            {% else %}
+                                    Link
+                            {% endif %}
+                            </p>
+                             <a href="{{link.LinkPath}}" class="Link">{{ link.LinkPath}}</a>
+                            <p class="Comment"> {% if link.LinkComment %}
+                                {{link.LinkComment}}
+                            {% else %}
+                                    Comment
+                            {% endif %}
+                            </p>
+                   
+                         </div>
+                {% endif %}
+
+                {% if info.Pics %}
+                        <div id = "PicDiv" class="PicDiv">
+                     <div class="container2">
+                         <p class="Head" >{% if info.Pics[0].PicHead %}
+                            {{info.Pics[0].PicHead}}
+                         {% else %}
+                                 Pics
+                         {% endif %}
+                         </p>
+                         {% for path in info.Pics %}
+                         <div class="mySlides">
+                            <img src="{{ path.PicPath }}" style="width:100%">
+                         </div>
+                         
+                                
+                         {% endfor %}
+                         <a class="prev" onclick="plusSlides(-1)">❮</a>
+                         <a class="next" onclick="plusSlides(1)">❯</a>
+
+                         <div class="caption-container2">
+                            <p id="caption"></p>
+                        </div>
+                        
+                        
+                        <div class="row">
+                            {% for path in info.Pics %}
+                            <div class="column">
+                                <img class="demo cursor" src="{{ path.PicPath }}" style="width:100%" onclick="currentSlide({{ loop.index }})" alt="{{path.PicComment}}">
+                              </div>
+                            {% endfor %}
+                            
+                        </div>
+                    
+                    <br>
+                    <br>
+                    </div>
+                </div>
+                         
+                {% endif %}
+
+                
+                
+                
+            
+            </div>
+
+            {% endfor %}
+            
+           
+            </div>
+{% endblock %}
+

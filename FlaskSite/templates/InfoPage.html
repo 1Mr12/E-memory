@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+
+{% block TitleBar %}
+    <ul>
+        <li data-s = "TextDiv" >Text</li>
+        <li data-s = "LinkDiv" >Link</li>
+        <li data-s = "PicDiv" >Pic</li>
+    </ul>
+{% endblock %} 
+{% block content %}
+
+<div class="content center ">
+
+    <form id="Form" action="" method="POST" enctype=multipart/form-data >
+        {{form.hidden_tag()}}
+        <div id= "TextDiv"  >
+            {{ form.Text.Head( placeholder="Head" ,class="Head" ) }}
+            {{ form.Text.TextData(class="textarea")}}
+            {{form.Text.Comment(placeholder="Comment" ,class="Comment " )}}
+           
+        </div>
+
+        <div id= "LinkDiv"  class="none" >
+            {{ form.Link.Head(placeholder="Head" ,class="Head")  }}
+            <br>
+            {{ form.Link.Url(placeholder="Link" ,class="Link")}}
+            <br>
+            {{form.Link.Comment(placeholder="Comment" ,class="Comment")}}
+            <br>
+            <br>
+
+        </div>
+
+
+        <div id="PicDiv"  class="none" >
+            {{ form.Pic.Head(placeholder="Head" ,class="Head")  }}
+            <br>
+            {{ form.Pic.Pic(placeholder="Pics" ,class="Pic")}}
+            {{form.Pic.Comment(placeholder="Comment" ,class="Comment")}}
+            <br>
+            <br>
+        </div>
+        
+        <!--
+        <input type="button" class="test" id="clone0" value="Text">
+        <input class="test" type="button" id="clone1" value="Link">
+        -->
+        {{ form.Key(placeholder="Search Key" ,class="Key") }}
+        <input list="TopicId" type="search" name="TopicId" id="SearchTopic" class="Key" placeholder="Topic Name" >
+        <datalist id="TopicId">
+            {% for value in TopicsValue %}
+            <option value={{ value }}>
+            {% endfor %}
+        </datalist>
+
+
+        {{ form.Submit(value="Save",class="submit")}}
+        <br>
+    
+    
+    </form>
+</div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/Normalize.css">
+    <link rel="stylesheet" href="static/css/Flash.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="icon" href="static/imgs/icons8-brain-64.png">
+    <script src="https://kit.fontawesome.com/26925e204a.js" crossorigin="anonymous"></script>
+
+
+
+    {% if title %}
+            <title>{{title}}</title>
+    {% else %}
+            <title>E-Memeory</title>
+    {% endif %}
+    
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert-{{category}}">Error: {{ message }}</div>
+    {% endfor %}
+
+    
+</head>
+<body>
+
+
+    <header>
+        <ul>
+            <li><a href="{{ url_for('Register')}}"> <i style="font-size: 28px" class="fas fa-user-circle"></i> </a></li>
+            <li> <a href="{{ url_for('Infospage')}}"> Info </a> </li>
+            <li> <a href="{{ url_for('Search')}}"> Search </a>  </li>
+            <li> <a href="{{ url_for('Topic')}}"> Topic </a>  </li>
+        </ul>
+    </header>
+
+    <div class="container center" >
+        <div class="TitleBar">
+            {% block TitleBar %}{% endblock %} 
+        </div>
+        
+        {% block content %} {% endblock %} 
+    </div>
+    
+    
+
+
+    <script src="static/js/jq.js"></script>
+    <script src="static/js/main.js"></script>
+</body>
+
+</html>

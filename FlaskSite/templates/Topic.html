@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block TitleBar %}
+    <ul>
+        <li data-s = "SearchDiv" >Search</li>
+        <li data-s = "NewTopic" >New</li>
+        <li data-s = "DeleteTopic" >Delete</li>
+    </ul>
+{% endblock %} 
+
+
+{% block content %}
+<div class="content center">
+    <form action="" method="POST">
+        {{form.hidden_tag()}}
+
+        <div id="SearchDiv" >
+            <br>
+            <input list="TopicId" type="search" name="SearchTopic" id="SearchTopic" class="Key" placeholder="Topic Name" >
+            <datalist id="TopicId">
+                {% for value in TopicsValue %}
+                <option value="{{ value }}">
+                {% endfor %}
+            </datalist>
+            
+    
+            {{ form.Submit(value="Search",class="none")}}
+        
+    
+    
+        </div>
+
+    <div id="NewTopic" class="none" >
+            <br>
+            {{ form.Name( placeholder="Topic Name" ,class="Comment") }}
+        
+            {{ form.Submit(value="New Topic" ,class="submit") }}
+        
+        
+    </div>
+    <div id="DeleteTopic" class="none">
+        <br>
+        <br>
+        <input list="TopicId" type="search" name="TopicId" id="SearchTopic" class="Key" placeholder="Topic Name" >
+        <datalist id="TopicId">
+            {% for value in TopicsValue %}
+            <option value="{{ value }}">
+            {% endfor %}
+        </datalist>
+        
+
+        {{ form.Submit(value="Delete",class="submit")}}
+    
+
+
+    </div>
+</form>
+
+
+</div>
+
+{% endblock %} 
