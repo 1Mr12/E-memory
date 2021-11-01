@@ -49,8 +49,8 @@
         {{ form.Key(placeholder="Search Key" ,class="Key") }}
         <input list="TopicId" type="search" name="TopicId" id="SearchTopic" class="Key" placeholder="Topic Name" >
         <datalist id="TopicId">
-            {% for value in TopicsValue %}
-            <option value={{ value }}>
+            {% for topicName in TopicsValue %}
+            <option value= "{{ topicName }}" >
             {% endfor %}
         </datalist>
 
