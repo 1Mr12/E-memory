@@ -13,6 +13,7 @@ if __name__ == '__main__':
 		app.run(debug=True)
 
 """
+
 put it in .bachrc to make alias
 alias em='cd /home/muhammed/E-memeory/E-memory-main/ && nohup python3 run.py &'
 alias EM="cd /home/muhammed/E-memeory/E-memory-main/ && nohup python3 run.py 1 & "
