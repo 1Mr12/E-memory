@@ -2,7 +2,7 @@ from flask import render_template , url_for ,redirect ,flash, request,g
 from werkzeug.utils import secure_filename
 from FlaskSite.forms import LoginForm , RegisterForm
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import date
+from datetime import datetime
 
 
 from FlaskSite import app ,db
@@ -71,7 +71,7 @@ def StorePic(info,ListOfFiles):
     for i in ListOfFiles:
         if i and  allowed_file(i.filename):
             filename = secure_filename(i.filename)
-            filename = info.Key +"-"+ str(date.today()) + filename[filename.rfind("."):]
+            filename = info.Key +"-"+ str(datetime.now()) + filename[filename.rfind("."):]
             filename = IMG_FOLDER+filename
             i.save(filename)
             filename=filename.replace("FlaskSite",'')
