@@ -1,5 +1,5 @@
 #FlaskSite/static/Files/imgs/*
-FlaskSite/site.db
+#FlaskSite/site.db
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
