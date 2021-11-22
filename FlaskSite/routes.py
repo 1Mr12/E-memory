@@ -63,16 +63,16 @@ def StorePic(info,ListOfFiles):
         newComment = request.form.get("Pic-Comment")
         for i in ListOfFiles:
             if i and  allowed_file(i.filename):
+                
                 filename = secure_filename(i.filename)
                 filename = info.Key +"-"+ str(datetime.now()) + filename[filename.rfind("."):]
                 filename = IMG_FOLDER+filename
                 i.save(filename)
                 filename=filename.replace("FlaskSite",'')
+                
                 t = Pic(PicPath=filename , Info=info)
-                if newHead:
-                    t.PicHead = newHead
-                if newComment:
-                    t.PicComment = newComment
+                t.PicHead = newHead if newHead else None
+                t.PicComment = newComment if newComment else None
                 db.session.add(t)
         return True
     except Exception as e:
