@@ -25,64 +25,58 @@ def allowed_file(filename):
 
 
 def StoreText(info):
-    NData = request.form.getlist("Text-TextData")
-    NHead = request.form.getlist("Text-Head")
-    NComment = request.form.getlist("Text-Comment")
-
-
-    #ListOfText = []
-    for i in range(len(NData)):
-        resume = 0
-
-        if NData[i]:
-            t = Text(Text=NData[i] , Info = info)
-            resume = 1
-        if NHead[i] and resume == 1:
-            t.TextHead = NHead[i]
-        if NComment[i] and resume ==1 :
-            t.TextComment = NComment[i]
-        if resume:
-            db.session.add(t)
-    return True
+    try:
+        newData = request.form.getlist("Text-TextData")
+        newHead = request.form.getlist("Text-Head")
+        newComment = request.form.getlist("Text-Comment")
+        #ListOfText = []
+        for i in range(len(newData)):
+            if newData[i]:
+                t = Text(Text=newData[i] , Info = info)
+                t.TextHead = newHead[i] if newHead[i] else None
+                t.TextComment = newComment[i] if newComment[i] else None
+                db.session.add(t)
+        return True
+    except Exception as e:
+        return False
 
 def StoreLink(info):
-    NData = request.form.getlist("Link-Url")
-    NHead = request.form.getlist("Link-Head")
-    NComment = request.form.getlist("Link-Comment")
+    try:
+        newData = request.form.getlist("Link-Url")
+        newHead = request.form.getlist("Link-Head")
+        newComment = request.form.getlist("Link-Comment")
 
-    #ListOfLink = []
-    for i in range(len(NData)):
-        resume = 0
-        if NData[i]:
-            t = Link(LinkPath=NData[i] , Info = info)
-            resume = 1
-        if NHead[i] and resume == 1:
-            t.LinkHead = NHead[i]
-        if NComment[i] and resume ==1 :
-            t.LinkComment = NComment[i]
-        if resume:
-            db.session.add(t)
-    return True
-
+        #ListOfLink = []
+        for i in range(len(newData)):
+            if newData[i]:
+                t = Link(LinkPath=newData[i] , Info = info)
+                t.LinkHead = newHead[i] if newHead[i] else None
+                t.LinkComment = newComment[i] if newComment[i] else None
+                db.session.add(t)
+        return True
+    except Exception as e:
+        return False
 
 def StorePic(info,ListOfFiles):
-    NHead = request.form.get("Pic-Head")
-    NComment = request.form.get("Pic-Comment")
-    for i in ListOfFiles:
-        if i and  allowed_file(i.filename):
-            filename = secure_filename(i.filename)
-            filename = info.Key +"-"+ str(datetime.now()) + filename[filename.rfind("."):]
-            filename = IMG_FOLDER+filename
-            i.save(filename)
-            filename=filename.replace("FlaskSite",'')
-            t = Pic(PicPath=filename , Info=info)
-            if NHead:
-                t.PicHead = NHead
-            if NComment:
-                t.PicComment = NComment
-            db.session.add(t)
-
-    return True
+    try:
+        newHead = request.form.get("Pic-Head")
+        newComment = request.form.get("Pic-Comment")
+        for i in ListOfFiles:
+            if i and  allowed_file(i.filename):
+                
+                filename = secure_filename(i.filename)
+                filename = info.Key +"-"+ str(datetime.now()) + filename[filename.rfind("."):]
+                filename = IMG_FOLDER+filename
+                i.save(filename)
+                filename=filename.replace("FlaskSite",'')
+                
+                t = Pic(PicPath=filename , Info=info)
+                t.PicHead = newHead if newHead else None
+                t.PicComment = newComment if newComment else None
+                db.session.add(t)
+        return True
+    except Exception as e:
+        return False
 
 def StoreFile():
     pass
@@ -120,9 +114,9 @@ def Infospage():
         Files = request.files.getlist("Pic-Pic")
         PicList = StorePic( info ,Files)
         StoreK = StoreKey(ToStoreKey)
-        db.session.add(info)
-        db.session.commit()
-
+        if TextList and LinkList and PicList and StoreK:
+            db.session.add(info)
+            db.session.commit()
         return redirect(url_for("Infospage"))
     else:
         print(form.errors)
