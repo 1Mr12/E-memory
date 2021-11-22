@@ -1,4 +1,4 @@
-#FlaskSite/static/Files/imgs/*
+FlaskSite/static/Files/imgs/*
 FlaskSite/site.db
 # Byte-compiled / optimized / DLL files
 __pycache__/
