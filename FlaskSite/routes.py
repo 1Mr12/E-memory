@@ -144,8 +144,8 @@ def Topic():
                 db.session.commit()
                 return redirect(url_for("Topic"))
         elif request.form.get("SearchTopic",""):
-            TID = request.form.get("SearchTopic","")
-            if TID:
+            TID = request.form.get("SearchTopic",None)
+            if TID in TopicsValue:
                 TID = TopicsValue[TID]
                 SearchKeys = [ i.Key for i in  SearchKey.query.all() ]
                 AllInfo = Info.query.filter_by(TopicId=TID).all()
