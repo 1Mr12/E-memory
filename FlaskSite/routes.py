@@ -1,8 +1,8 @@
 from flask import render_template , url_for ,redirect ,flash, request,g
-from werkzeug.utils import secure_filename
-from FlaskSite.forms import LoginForm , RegisterForm
-from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
+from werkzeug.utils import secure_filename # To secure names which we pass to the server on uploding pics etc
+from FlaskSite.forms import LoginForm , RegisterForm # Login and register forms
+from werkzeug.security import generate_password_hash, check_password_hash # For pass security 
+from datetime import datetime # to store the acurate date in the database 
 
 
 from FlaskSite import app ,db
