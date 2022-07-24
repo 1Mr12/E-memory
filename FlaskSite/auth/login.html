@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+
+{% block TitleBar %}
+<header>
+<ul>
+    <li> <a href="{{ url_for('Login')}}">Login</a> </li>
+    <li> <a href="{{ url_for('Register')}}">Register</a>  </li>
+</ul>
+</header>
+{% endblock %} 
+
+{% block content %}
+
+<form id="This" method="POST">
+  
+    <div class="containerr">
+      <h1>Login</h1>
+      {{ form.hidden_tag() }}
+      {{form.UserName(placeholder="User Name")}}
+      {{form.Pass(placeholder="PassWord")}}
+      {{form.remember.label}}
+      {{form.remember()}}
+      <br>      <br>
+
+      {{form.submit(class="registerbtn")}}
+
+
+
+    </div>
+    
+  
+  </form>
+
+
+{% endblock %}

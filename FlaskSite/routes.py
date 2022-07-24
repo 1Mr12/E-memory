@@ -10,6 +10,8 @@ from FlaskSite.forms import InfoF,NewTopic
 from FlaskSite.models import *
 
 
+from flask_login import login_user, current_user
+
 IMG_FOLDER = 'FlaskSite/static/Files/imgs/'
 ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg',"txt",'py'}
 
@@ -177,6 +179,9 @@ def Search():
 
 @app.route('/New' , methods=['GET','POST'])
 def Register():
+    if current_user.is_authenticated():
+        return redirect(url_for('Home'))
+
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(UserName=form.UserName.data,password=form.Password.data)
@@ -200,12 +205,15 @@ def Register():
 
 @app.route('/Login', methods=['GET', 'POST'])
 def Login():
+    if current_user.is_authenticated():
+        return redirect(url_for('Home'))
     form = LoginForm()
     if form.validate_on_submit():
         UserName = form.UserName.data
         Pass  = form.Pass.data
         user = User.query.filter_by(UserName=form.UserName.data,password=form.Pass.data).first()
         if user :
+            login_user(user,remember=form.remember.data)
             return redirect(url_for("Infospage"))
         else:
             return render_template("success.html",title="Error",type="error")

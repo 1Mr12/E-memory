@@ -1,6 +1,7 @@
 from FlaskSite import app
 from sys import argv # to take input arguments from script 
 
+
 # run it as admin if you gave it any tow input argu
 if len(argv) ==2:
 	root = True
